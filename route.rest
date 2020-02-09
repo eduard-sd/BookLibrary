@@ -1,0 +1,37 @@
+GET http://localhost:3000/library/books/getAll
+
+###
+
+POST http://localhost:3000/library/books/search/10
+
+###
+
+POST http://localhost:3000/library/books/add
+Content-Type: application/json
+
+   {
+   "isbn" : "9",
+   "lastName" : "1",
+   "firstName" : "1",
+   "bookName" : "1",
+   "publishedDate" : "2010"
+   }
+
+
+###
+
+
+PUT http://localhost:3000/library/books/update/23
+Content-Type: application/json
+
+   {
+   "lastName" : "here"
+   }
+
+
+###
+
+
+DELETE http://localhost:3000/library/books/delete/23
+
+###
