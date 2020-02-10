@@ -20,7 +20,7 @@ router.get('/books/getAll', async (req, res) => {
 });
 
 // Getting one / Получить одну запись по номеру isbn
-router.post('/books/search/:isbn', async(req, res) => {
+router.post('/books/isbn/:isbn', async(req, res) => {
     let tempRow = req.params.isbn;
     let tempQuery = 'SELECT * FROM book_store WHERE  ISBN  IN ('+ `'${tempRow}')`;
 
@@ -76,7 +76,6 @@ router.put('/books/update/:id', async (req, res) => {
     let updatePublishedDate = tempRow.publishedDate ? `, publishedDate = '${tempRow.publishedDate}'` : '';
 
     let tempQuery = 'UPDATE book_store SET bookID = ' + `'${tempId}'` + `${updateISBN} ${updateLastName} ${updateFirstName} ${updateBookName} ${updatePublishedDate}`+' WHERE  bookID = ' + `${tempId}`;
-    console.log(tempQuery);
 
     await getBook(req,res,function(result){
         try {

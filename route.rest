@@ -2,7 +2,7 @@ GET http://localhost:3000/library/books/getAll
 
 ###
 
-POST http://localhost:3000/library/books/search/10
+POST http://localhost:3000/library/books/isbn/10
 
 ###
 

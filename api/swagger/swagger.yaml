@@ -1,0 +1,169 @@
+swagger: '2.0'
+info:
+  description: This is a bookshelf for library rest api
+  version: 1.0.0
+  title: Bookshelf API
+  # developed by Eduard Sayakhov
+
+host: localhost:3000
+basePath: /library
+consumes:
+  -application.json
+produces:
+  -application.json
+paths:
+  /books/getAll:
+    get:
+      summary: Getting all books
+      description: Returns JSON list of objects
+      responses:
+        '200':
+          description: Response books objects.
+          schema:
+            $ref: '#/definitions/Book'
+        '5XX':
+          description: Unexpected error.
+  /books/isbn/{isbn}:
+    post:
+      summary: Find book by ISBN number
+      description: Returns a single book. For valid response try integer IDs with positive integer value.\ \ Negative or non-integer values will generate API errors
+      operationId: getBook
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: isbn
+          in: path
+          description: number of ISBN to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Book'
+
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Book not found
+        5XX:
+          description: Unexpected error.
+  /books/add:
+    post:
+      summary: Add new book
+      description: Returns a single book
+      operationId: addBook
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: body
+          in: body
+          description: Create book object
+          required: true
+          schema:
+            $ref: '#/definitions/addBook'
+      responses:
+        201:
+          description: Book added
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Book not found
+        5XX:
+          description: Unexpected error.
+  /books/update/{id}:
+    put:
+      summary: Update book
+      description: Updates single book by selecting id. For valid response try integer IDs with positive integer value.\ \ Negative or non-integer values will generate API errors
+      operationId: updateBook
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: id
+          in: path
+          description: id that need to be updated
+          required: true
+          type: number
+        - in: body
+          name: body
+          description: Update name of all keys or random
+          required: true
+          schema:
+            $ref: '#/definitions/addBook'
+      responses:
+        201:
+          description: Book updated
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Book not found
+        5XX:
+          description: Unexpected error.
+  /books/delete/{id}:
+    delete:
+      summary: Delete book by id number
+      description: For valid response try integer IDs with positive integer value.\ \ Negative or non-integer values will generate API errors
+      operationId: deleteBook
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: id
+          in: path
+          description: Id number for delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Book not found
+        5XX:
+          description: Unexpected error.
+definitions:
+  Book:
+    type: object
+    properties:
+      bookID:
+        type: integer
+      ISBN:
+        type: string
+      LastName:
+        type: string
+      FirstName:
+        type: string
+      BookName:
+        type: string
+      publishedDate:
+        type: number
+
+    xml:
+      name: BookList
+  addBook:
+    type: object
+    properties:
+      isbn:
+        type: string
+        example: "9746546"
+      lastName:
+        type: string
+        example: Flanagan
+      firstName:
+        type: string
+        example: David
+      bookName:
+        type: string
+        example: JavaScript
+      publishedDate:
+        type: number
+        example: 2019
+
+    xml:
+      name: BookList
